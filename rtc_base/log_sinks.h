@@ -53,7 +53,8 @@ class FileRotatingLogSink : public LogSink {
 
   // Disables buffering on the underlying stream.
   bool DisableBuffering();
-
+  void Flush() override;
+  
  protected:
   explicit FileRotatingLogSink(FileRotatingStream* stream);
 

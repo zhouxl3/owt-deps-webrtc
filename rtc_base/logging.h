@@ -163,7 +163,8 @@ class LogSink {
   virtual void OnLogMessage(const std::string& message,
                             LoggingSeverity severity);
   virtual void OnLogMessage(const std::string& message) = 0;
-
+  virtual void Flush() = 0;
+  
   virtual void OnLogMessage(absl::string_view msg,
                             LoggingSeverity severity,
                             const char* tag);
@@ -544,6 +545,7 @@ class LogMessage {
   RTC_NO_INLINE static bool IsNoop() {
     return IsNoop(S);
   }
+  static void Flush();
 #else
   // Next methods do nothing; no one will call these functions.
   LogMessage(const char* file, int line, LoggingSeverity sev) {}

@@ -73,6 +73,9 @@ bool FileRotatingLogSink::Init() {
 bool FileRotatingLogSink::DisableBuffering() {
   return stream_->DisableBuffering();
 }
+void FileRotatingLogSink::Flush() {
+  stream_->Flush();
+}
 
 CallSessionFileRotatingLogSink::CallSessionFileRotatingLogSink(
     absl::string_view log_dir_path,

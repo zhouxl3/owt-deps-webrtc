@@ -451,6 +451,13 @@ bool LogMessage::IsNoop(LoggingSeverity severity) {
   return streams_empty_.load(std::memory_order_relaxed);
 }
 
+void LogMessage::Flush() {
+  webrtc::MutexLock lock(&GetLoggingLock());
+  for (LogSink* entry = streams_; entry != nullptr; entry = entry->next_) {
+      entry->Flush();
+  }
+}
+
 void LogMessage::FinishPrintStream() {
   if (!extra_.empty())
     print_stream_ << " : " << extra_;
